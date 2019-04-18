@@ -1,4 +1,4 @@
-agent ('master'){  #start node
+agent ('master'){  
 def commit_id
 stage ('prep'-clone) 
 {
@@ -24,6 +24,6 @@ stage ('test') {}
 
      
 
-         } #end node
+         } 
 
                     
