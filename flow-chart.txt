@@ -1,0 +1,7 @@
+PREP
+1. server code + client code - in python.  dockerfile for linux with python.
+
+Build
+2. Jenkins-file - create container from docker file with python dep + python scripts embeded
+3. run the two containers in docker
+4. test funcionaity - check log files aswell ?
