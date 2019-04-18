@@ -4,8 +4,14 @@ FROM alpine:latest
 
 WORKDIR /
 
-ADD server.py /
+#ADD server.py /
 
-RUN apk add python 
 
-CMD python /server.py
+RUN apk add python && \
+         wget https://raw.githubusercontent.com/lavih/jenkins-python-server/master/Server.py && \
+         python Server.py &
+        
+
+CMD /usr/sbin/init
+
+

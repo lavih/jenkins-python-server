@@ -1,13 +1,22 @@
-node{  #start node
+agent ('master'){  #start node
 def commit_id
-stage ('prep') 
+stage ('prep'-clone) 
 {
 git url: https://github.com/lavih/jenkins-python-server.git
 }
 
 stage ('build&deploy') 
+
 {
-      streps{}
+ steps
+{
+  dockerfile
+              {
+                 filename 'dockerfile-server.txt'
+                 additionalBuildArgs -t python-server
+              }
+}
+
 }
 
 stage ('test') {}
