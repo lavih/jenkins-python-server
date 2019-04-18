@@ -1,0 +1,12 @@
+# alpine with python+curl
+
+FROM alpine:latest
+
+WORKDIR /
+
+RUN apk add python && \
+         apk add curl && \
+         ln -sf /dev/stdout /var/log/nginx/access.log \
+         && ln -sf /dev/stderr /var/log/nginx/error.log
+
+CMD sh #/usr/sbin/init
