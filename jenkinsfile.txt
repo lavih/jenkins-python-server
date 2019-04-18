@@ -1,29 +1,33 @@
-agent ('master'){  
-def commit_id
-stage ('prep'-clone) 
-{
-git url: https://github.com/lavih/jenkins-python-server.git
-}
-
-stage ('build&deploy') 
-
-{
- steps
-{
-  dockerfile
-              {
+pipeline {
+agent { label 'master' } 
+\\parameters{}
+stages{ //stages op
+    stage ('prep-clone') {
+          steps {
+                git url: "https://github.com/lavih/jenkins-python-server.git"
+                     }
+                                        }
+stage ('build&deploy') {
+                          steps{
+                  dockerfile{
                  filename 'dockerfile-server.txt'
-                 additionalBuildArgs -t python-server
-              }
-}
+                 //additionalBuildArgs -t python-server
+                 //additionalBuildArgs tag=someValue
+                 dockerFingerprintFrom dockerfile: 'dockerfile-server.txt', image: 'python-server'
+                                   }
+                                   }
+                                        }
 
-}
+                        
 
-stage ('test') {}
-
+stage ('test'){
+     steps {
+         withDockerRegistry(credentialsId: 'dockerhub', url: 'https://cloud.docker.com/u/lavih/repository/docker/lavih/nodejs-build')
+               }
+                      }
 
      
 
-         } 
-
-                    
+       } //stages cl
+} //pipeline cl
+ 
