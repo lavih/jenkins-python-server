@@ -4,14 +4,14 @@ FROM alpine:latest
 
 WORKDIR /
 
-#ADD server.py /
-
-
 RUN apk add python && \
-         wget https://raw.githubusercontent.com/lavih/jenkins-python-server/master/Server.py && \
-         python Server.py &
-        
+         wget https://raw.githubusercontent.com/lavih/jenkins-python-server/master/Server.py 
 
-CMD /usr/sbin/init
+
+COPY ./Server.py /
+
+ENTRYPOINT [ "python", "Server.py", "&" ]
+        
+CMD /sbin/init
 
 

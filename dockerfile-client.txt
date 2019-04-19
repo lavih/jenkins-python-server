@@ -4,8 +4,15 @@ FROM alpine:latest
 
 WORKDIR /
 
-ADD client.py /
+RUN apk add python && \
+         apk add curl && \
+         wget https://raw.githubusercontent.com/lavih/jenkins-python-server/master/Client.sh
+        
 
-RUN apk add python 
+COPY ./Client.sh /
 
-CMD python /client.py
+
+ENTRYPOINT [ "Client.sh" ]
+        
+CMD /sbin/init
+

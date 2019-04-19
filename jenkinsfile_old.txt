@@ -1,0 +1,38 @@
+pipeline {
+agent { dockerfile true } 
+stages{
+    stage ('prep-clone') {
+          steps {
+                git url: "https://github.com/lavih/jenkins-python-server.git"
+                 }
+                         }
+stage ('build&deploy') {
+             steps{
+                    //docker.build 
+                    dockerfile {
+                    filename 'dockerfile-server.txt'
+                    //dir '.'
+                    label 'python-server'
+                                 }
+
+                  } 
+                }
+       
+stage ('test'){
+     steps {
+            docker.image('alpine:python') //.withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw" -p 3306:3306')
+            //docker.image('alpine:python').pull()
+              sh 'cat /etc/os-release'
+           }
+}
+stage ('artifact'){
+     steps {
+         docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+        docker.build("lavih/jenkins-python:latest", '.').push()
+         //withDockerRegistry(credentialsId: 'dockerhub', url: 'https://cloud.docker.com/u/lavih/repository/docker/lavih/nodejs-build')
+           }
+}
+     
+}
+       } 
+ 
