@@ -1,7 +1,7 @@
 # alpine with client app
 
 FROM alpine:latest
-
+USER root
 WORKDIR /
 
 RUN apk add python && \
@@ -10,9 +10,9 @@ RUN apk add python && \
         
 
 COPY ./Client.sh /
+RUN chown root:root ./Client.sh
 
-
-ENTRYPOINT [ "Client.sh" ]
+ENTRYPOINT [ "/Client.sh" ]
         
 CMD /sbin/init
 
