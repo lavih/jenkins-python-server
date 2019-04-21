@@ -1,0 +1,37 @@
+pipeline {
+
+agent { label 'master'  }
+stages{
+    stage ('prep-clone') {
+          steps {
+                git url: "https://github.com/lavih/jenkins-python-server.git"
+                 }
+                         }
+stage ('build&deploy') {
+             steps{
+                   script {
+                    def dockerfile = 'dockerfile-server.txt'
+                    def customImage = docker.build("python-server:${env.BUILD_ID}", "-f ${dockerfile} .")
+                          }
+                   }
+
+                  } 
+                
+       
+stage ('test'){
+     steps {
+         script{
+            def DockerContainer = docker.image('python-server:${env.BUILD_ID}').inside{
+                sh 'cat /etc/os-release'
+            //withDockerContainer('python-server:${env.BUILD_ID}') {sh 'cat /etc/os-release'}
+            //withdocker.image('python-server:latest') //.withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw" -p 3306:3306')
+            //docker.image('alpine:python').pull()
+              sh 'cat /etc/os-release'
+                                                                                        }
+               }
+           }
+               }
+     }
+
+       } 
+
