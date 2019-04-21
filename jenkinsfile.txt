@@ -26,7 +26,9 @@ stage ('test'){
             def DockerContainer_server = docker.image('python-server:${env.BUILD_ID}') //.inside{
             def DockerContainer_client = docker.image('python-client:${env.BUILD_ID}') //.inside{
             docker.image("${DockerContainer_server"}).withRun("--net lavih") { c -> 
+            echo "test"}
             docker.image("${DockerContainer_client"}).withRun("--net lavih") { c -> 
+            echo "test"}
             //docker.run("${DockerContainer_server"}).withRun("--net lavih")
             //docker.run("${DockerContainer_client"}).withRun("--net lavih")
                //sh 'cat /etc/os-release'
