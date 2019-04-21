@@ -10,8 +10,10 @@ stages{
 stage ('build&deploy') {
              steps{
                    script {
-                    def dockerfile = 'dockerfile-server.txt'
-                    def customImage = docker.build("python-server:${env.BUILD_ID}", "-f ${dockerfile} .")
+                 def dockerfile_pythonserver = 'dockerfile-server.txt'
+                 def customImage_pythonserver = docker.build("python-server:${env.BUILD_ID}", "-f ${dockerfile_pythonserver} .")
+                 def dockerfile_pythonclient = 'dockerfile-client.txt'
+                 def customImage_pythonclient = docker.build("python-client:${env.BUILD_ID}", "-f ${dockerfile_pythonclient} .")
                           }
                    }
 
@@ -21,17 +23,17 @@ stage ('build&deploy') {
 stage ('test'){
      steps {
          script{
-            def DockerContainer = docker.image('python-server:${env.BUILD_ID}').inside{
-                sh 'cat /etc/os-release'
-            //withDockerContainer('python-server:${env.BUILD_ID}') {sh 'cat /etc/os-release'}
-            //withdocker.image('python-server:latest') //.withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw" -p 3306:3306')
-            //docker.image('alpine:python').pull()
-              sh 'cat /etc/os-release'
-                                                                                        }
+            def DockerContainer_server = docker.image('python-server:${env.BUILD_ID}') //.inside{
+            def DockerContainer_client = docker.image('python-client:${env.BUILD_ID}') //.inside{
+               //sh 'cat /etc/os-release'
+               //docker.image('alpine:python').pull()
+               //sh 'cat /etc/os-release'
+                }
                }
            }
                }
      }
 
-       } 
+      
 
+//note
