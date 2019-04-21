@@ -10,7 +10,9 @@ RUN apk add python && \
         
 
 COPY ./Client.sh /
-RUN chown root:root ./Client.sh
+
+#RUN chown root:root ./Client.sh
+RUN chmod 777 /Client.sh
 
 ENTRYPOINT [ "/Client.sh" ]
         
