@@ -25,10 +25,8 @@ stage ('test'){
          script{
             def DockerContainer_server = docker.image('python-server:${env.BUILD_ID}') //.inside{
             def DockerContainer_client = docker.image('python-client:${env.BUILD_ID}') //.inside{
-            docker.image("${DockerContainer_server"}) //.withRun("--net lavih")
-            docker.image("${DockerContainer_client"}) //.withRun("--net lavih")
-            //docker.run("${DockerContainer_server"}).withRun("--net lavih")
-            //docker.run("${DockerContainer_client"}).withRun("--net lavih")
+            docker.run("${DockerContainer_server"})
+            docker.run("${DockerContainer_client"})
                //sh 'cat /etc/os-release'
                //docker.image('alpine:python').pull()
                //sh 'cat /etc/os-release'
