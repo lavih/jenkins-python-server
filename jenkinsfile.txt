@@ -23,10 +23,10 @@ stage ('build&deploy') {
 stage ('test'){
      steps {
          script{
-            def DockerContainer_server = docker.image("python-server:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
-            def DockerContainer_client = docker.image("python-client:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
-            DockerContainer_server.run()
-            DockerContainer_client.run()
+            def DockerContainer_server = docker.run("python-server:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
+            def DockerContainer_client = docker.run("python-client:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
+            //DockerContainer_server.run()
+            //DockerContainer_client.run()
                 } //script
                } //steps
            } //stage
