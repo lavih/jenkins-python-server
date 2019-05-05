@@ -23,19 +23,12 @@ stage ('build&deploy') {
 stage ('test'){
      steps {
          script{
-            def DockerContainer_server = docker.image('python-server:${env.BUILD_ID}') //.inside{
-            def DockerContainer_client = docker.image('python-client:${env.BUILD_ID}') //.inside{
-            DockerContainer_server.run()
-            DockerContainer_client.run()
-               //sh 'cat /etc/os-release'
-               //docker.image('alpine:python').pull()
-               //sh 'cat /etc/os-release'
-                }
-               }
-           }
-               }
-     }
-
-      
-
-//note
+            def DockerContainer_server = docker.image("python-server:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
+            def DockerContainer_client = docker.image("python-client:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
+            sh 'docker container run --name --net lavih -d "python-client:${env.BUILD_ID}"'
+               } //script
+               } //steps
+           } //stage
+     
+               } //stages
+     } //pipeline
