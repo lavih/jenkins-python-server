@@ -25,8 +25,8 @@ stage ('test'){
          script{
             def DockerContainer_server = docker.image("python-server:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
             def DockerContainer_client = docker.image("python-client:${env.BUILD_ID}").withRun('--net lavih -v test:/test') {}
-                } //script
-               script{sh 'docker container run --name --net lavih -d "python-client:${env.BUILD_ID}"'}
+            sh 'docker container run --name --net lavih -d "python-client:${env.BUILD_ID}"'
+               } //script
                } //steps
            } //stage
      
